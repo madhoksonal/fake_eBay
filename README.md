@@ -9,3 +9,5 @@ Sun, Apr 18 : Final due date
 
 ## Idea
 Candles!
+
+found this helpful[https://stackoverflow.com/questions/4298960/git-add-and-commit-in-one-command]
