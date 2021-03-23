@@ -13,27 +13,6 @@
 	
 	<body>
 
-	
-		<!-- <br>
-	
-		 Show html form to i) display something, ii) choose an action via a 
-		  | radio button -->
-		<!-- forms are used to collect user input 
-			The default method when submitting form data is GET.
-			However, when GET is used, the submitted form data will be visible in the page address field
-		<form method="post" action="show.jsp">
-		    <!-- note the show.jsp will be invoked when the choice is made 
-			<!-- The next lines give HTML for radio buttons being displayed 
-		  <input type="radio" name="command" value="beers"/>Let's have a beer! Click here to see the beers.
-		  <br>
-		  <input type="radio" name="command" value="bars"/>Let's go to a bar! Click here to see the bars.
-		    <!-- when the radio for bars is chosen, then 'command' will have value 
-		     | 'bars', in the show.jsp file, when you access request.parameters 
-		  <br>
-		  <input type="submit" value="submit" />
-		</form>
-		<br> -->
-		
 	Log In or Create Account 
 	<br>
 		<form method="get" action="sellsNewBeer.jsp">
