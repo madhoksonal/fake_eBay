@@ -19,6 +19,7 @@
 			//Get the selected radio button from the index.jsp
 			String user = request.getParameter("username");
 			//out.print(user);
+
 			
 			/** how to import username/email from auction-login.jsp????**/
 			/** need to be able to share this will all the pages????**/
@@ -26,6 +27,8 @@
 		
 		<!--  Make an HTML table to show the results in: -->
 		
+
+
 		You have successfully logged in.
 		<br>
 		Current User: 

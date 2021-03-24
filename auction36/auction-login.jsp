@@ -13,8 +13,21 @@
 	
 	<body>
 	
+	Admin Login:
+		<br>
+			<form method="post" action="check-admin-login.jsp">
+			<table> 
+			
+			  <input type="text" name="email" value="Username"/> 
+			  <input type="text" name="pw" value="Password"/>
+			  <input type="submit" value="Login"/>
+
+			</table>
+			</form>
+		<br>
+
 	Log In
-	<br>
+		<br>
 		<form method="post" action="account-login.jsp">
 			<table>
 				<tr>    
@@ -27,7 +40,7 @@
 			</table>
 			<input type="submit" value="Sign in">
 		</form>
-	<br>
+		<br>
 	
 	Create New Account
 	<br>
