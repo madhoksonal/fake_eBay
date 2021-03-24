@@ -10,6 +10,9 @@
 		<title>Homepage</title>
 	</head>
 	<body>
+		You have successfully logged in.
+
+		<!--  
 		<% try {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();		
@@ -25,14 +28,9 @@
 			/** need to be able to share this will all the pages????**/
 		%>
 		
-		<!--  Make an HTML table to show the results in: -->
+		Make an HTML table to show the results in: -->
 		
-
-
-		You have successfully logged in.
-		<br>
-		Current User: 
-		<%out.print(user);%>
+		<!-- <%out.print(user);%>
 		<br>
 		<button type="reset" onclick="location.href = '/auction36/auction-login.jsp';">Log out</button>
 		
@@ -41,7 +39,7 @@
 		<%} catch (Exception e) {
 			out.print(e);
 		}%>
-
+	-->
 
 	</body>
 </html>

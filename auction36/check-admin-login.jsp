@@ -10,7 +10,6 @@
 <title>Admin Log-in</title>
 </head>
 <body>
-	<h1>Admin Login</h1>
 	<%
 	try {
         

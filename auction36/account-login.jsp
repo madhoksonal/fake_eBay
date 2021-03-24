@@ -14,30 +14,33 @@
 	try {
 
 		//Get the database connection
+		Class.forName("com.mysql.jdbc.Driver"); 
 		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay", "root", "beetroot");
 
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 
 		//Get parameters from the HTML form at the HelloWorld.jsp
 		String thisEmail = request.getParameter("email");
-		String thisPW = request.getParameter("password");
-		
+		String thisPW = request.getParameter("pw");
 		
 		String q = "SELECT email FROM accounts WHERE password = '" + thisPW + "'";
-		
-		
+		out.println("\n"+thisPW);
+		out.println("result set");
 		ResultSet result = stmt.executeQuery(q);
 		if (result.wasNull()){
 			out.print("Account does not exist.");
 		}
-		
+		out.println("account exist");
 		while(result.next()){
 			String checking = result.getString("email");
+			out.println("\n"+checking+"\n"+thisEmail);
 			if (checking.equals(thisEmail)){
 				con.close();
-				response.sendRedirect("/auction36/webpage.jsp");
+				out.println("password correct");
+				response.sendRedirect("webpage.jsp");
+				out.println("not redirected");
 			}else{
 				out.print("Password does not match. Please try again.");
 				con.close();

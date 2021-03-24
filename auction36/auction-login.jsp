@@ -18,7 +18,7 @@
 			<form method="post" action="check-admin-login.jsp">
 			<table> 
 			
-			  <input type="text" name="email" value="Username"/> 
+			  <input type="text" name="email" value="Email"/> 
 			  <input type="text" name="pw" value="Password"/>
 			  <input type="submit" value="Login"/>
 
@@ -27,37 +27,29 @@
 		<br>
 
 	Log In
-		<br>
+	<br>
 		<form method="post" action="account-login.jsp">
-			<table>
-				<tr>    
-					<td>E-mail</td><td><input type="text" name="email"></td>
-				</tr>
-				<tr>
-					<td>Password</td><td><input type="text" name="password"></td>
-				</tr>
-			
-			</table>
-			<input type="submit" value="Sign in">
+		<table> 
+		
+			<input type="text" name="email" value="Email"/> 
+			<input type="text" name="pw" value="Password"/>
+			<input type="submit" value="Login"/>
+
+		</table>
 		</form>
-		<br>
+	<br>
 	
 	Create New Account
 	<br>
 		<form method="post" action="account-creation.jsp">
-			<table>
-				<tr>    
-					<td>Username</td><td><input type="text" name="username"></td>
-				</tr>
-				<tr>    
-					<td>E-mail</td><td><input type="text" name="email"></td>
-				</tr>
-				<tr>
-					<td>Password</td><td><input type="text" name="password"></td>
-				</tr>
-			
-			</table>
-			<input type="submit" value="Create Account">
+		<table> 
+		
+		  <input type="text" name="usern" value="Login Name"/> 
+		  <input type="text" name="email" value="Email"/> 
+		  <input type="text" name="pw" value="Password"/>
+		  <input type="submit" value="Login"/>
+
+		</table>
 		</form>
 	<br>
 
