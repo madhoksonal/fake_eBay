@@ -68,7 +68,7 @@
 		
 		Customer Rep Login:
 		<br>
-			<form method="post" action=".jsp">
+			<form method="post" action="check-rep-login.jsp">
 			
 			<table> 
 				<tr>    
