@@ -23,7 +23,7 @@
 
 		//Get parameters from the HTML form at the HelloWorld.jsp
 		String thisEmail = request.getParameter("email");
-		String thisPW = request.getParameter("pw");
+		String thisPW = request.getParameter("password");
 		
 		String q = "SELECT email FROM accounts WHERE password = '" + thisPW + "'";
 		out.println("\n"+thisPW);
