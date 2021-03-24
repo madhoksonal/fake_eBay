@@ -10,36 +10,18 @@
 		<title>Homepage</title>
 	</head>
 	<body>
-		You have successfully logged in.
-
-		<!--  
-		<% try {
-			ApplicationDB db = new ApplicationDB();	
-			Connection con = db.getConnection();		
-
-			//Create a SQL statement
-			Statement stmt = con.createStatement();
-			//Get the selected radio button from the index.jsp
-			String user = request.getParameter("username");
-			//out.print(user);
-
-			
-			/** how to import username/email from auction-login.jsp????**/
-			/** need to be able to share this will all the pages????**/
+		<%
+		if ((session.getAttribute("email") == null)) {
 		%>
-		
-		Make an HTML table to show the results in: -->
-		
-		<!-- <%out.print(user);%>
-		<br>
-		<button type="reset" onclick="location.href = '/auction36/auction-login.jsp';">Log out</button>
-		
-		<% db.closeConnection(con); %>
-			
-		<%} catch (Exception e) {
-			out.print(e);
-		}%>
-	-->
+		You are not logged in. <br/>
+		<a href="auction-login.jsp">Please Login.</a>
+		<%} else {
+			%>
+			You are logged in.
+			<br>
+			Currently logged in: <%=session.getAttribute("email")%> <a href='logout.jsp'>Log out.</a>
+			<%
+			}%>
 
 	</body>
 </html>
