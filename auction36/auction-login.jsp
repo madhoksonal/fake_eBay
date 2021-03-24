@@ -16,13 +16,17 @@
 	Admin Login:
 		<br>
 			<form method="post" action="check-admin-login.jsp">
-			<table> 
 			
-			  <input type="text" name="email" value="Username"/> 
-			  <input type="text" name="pw" value="Password"/>
-			  <input type="submit" value="Login"/>
+			<table> 
+				<tr>    
+					<td>E-mail</td><td><input type="text" name="email"></td>
+				</tr>
+				<tr>
+					<td>Password</td><td><input type="text" name="password"></td>
+				</tr>
 
 			</table>
+				<input type="submit" value="Login">
 			</form>
 		<br>
 
