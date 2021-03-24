@@ -15,7 +15,7 @@
 	
 	Log In
 		<br>
-		<form method="post" action="account-login.jsp">
+		<form method="post" action="check-account-login.jsp">
 			<table>
 				<tr>    
 					<td>E-mail</td><td><input type="text" name="email"></td>
