@@ -16,7 +16,7 @@
 		//Get the database connection
 		Class.forName("com.mysql.jdbc.Driver"); 
 		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection("jdbc:mysql://localhost:3306/fakeEbay", "root", "beetroot");	
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay", "root", "beetroot");	
 
 		//Create a SQL statement
 		Statement stmt = con.createStatement();

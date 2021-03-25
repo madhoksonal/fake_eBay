@@ -10,6 +10,8 @@
 		<title>Homepage</title>
 	</head>
 	<body>
+		Home page!!!
+		
 		You have successfully logged in.
 
 		<!--  

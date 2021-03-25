@@ -48,7 +48,7 @@
 		<form method="post" action="account-creation.jsp">
 		<table> 
 		
-		  <input type="text" name="usern" value="Login Name"/> 
+		  <input type="text" name="username" value="Login Name"/> 
 		  <input type="text" name="email" value="Email"/> 
 		  <input type="text" name="password" value="Password"/>
 		  <input type="submit" value="Login"/>
