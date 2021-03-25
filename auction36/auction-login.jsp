@@ -13,7 +13,43 @@
 	
 	<body>
 	
-	Admin Login:
+	Log In
+		<br>
+		<form method="post" action="check-account-login.jsp">
+			<table>
+				<tr>    
+					<td>E-mail</td><td><input type="text" name="email"></td>
+				</tr>
+				<tr>
+					<td>Password</td><td><input type="text" name="password"></td>
+				</tr>
+			
+			</table>
+			<input type="submit" value="Sign in">
+		</form>
+		<br>
+	
+	Create New Account
+	<br>
+		<form method="post" action="account-creation.jsp">
+			<table>
+				<tr>    
+					<td>Username</td><td><input type="text" name="username"></td>
+				</tr>
+				<tr>    
+					<td>E-mail</td><td><input type="text" name="email"></td>
+				</tr>
+				<tr>
+					<td>Password</td><td><input type="text" name="password"></td>
+				</tr>
+			
+			</table>
+			<input type="submit" value="Create Account">
+		</form>
+	<br>
+	
+	<hr class="dashed">
+		Admin Login:
 		<br>
 			<form method="post" action="check-admin-login.jsp">
 			
@@ -29,33 +65,23 @@
 				<input type="submit" value="Login">
 			</form>
 		<br>
-
-	Log In
-	<br>
-		<form method="post" action="account-login.jsp">
-		<table> 
 		
-			<input type="text" name="email" value="Email"/> 
-			<input type="text" name="password" value="Password"/>
-			<input type="submit" value="Login"/>
+		Customer Rep Login:
+		<br>
+			<form method="post" action="check-rep-login.jsp">
+			
+			<table> 
+				<tr>    
+					<td>E-mail</td><td><input type="text" name="email"></td>
+				</tr>
+				<tr>
+					<td>Password</td><td><input type="text" name="password"></td>
+				</tr>
 
-		</table>
-		</form>
-	<br>
-	
-	Create New Account
-	<br>
-		<form method="post" action="account-creation.jsp">
-		<table> 
-		
-		  <input type="text" name="username" value="Login Name"/> 
-		  <input type="text" name="email" value="Email"/> 
-		  <input type="text" name="password" value="Password"/>
-		  <input type="submit" value="Login"/>
-
-		</table>
-		</form>
-	<br>
+			</table>
+				<input type="submit" value="Login">
+			</form>
+		<br>
 
 </body> 
 </html>

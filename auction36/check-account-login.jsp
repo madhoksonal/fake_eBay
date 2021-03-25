@@ -7,16 +7,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Account Log-in</title>
+<title>Checking login...</title>
 </head>
 <body>
 	<%
 	try {
 
 		//Get the database connection
-		Class.forName("com.mysql.jdbc.Driver"); 
+		Class.forName("com.mysql.jdbc.Driver");
 		ApplicationDB db = new ApplicationDB();	
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay", "root", "beetroot");
+		//Connection con = db.getConnection();
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay","root", "D1am0nd4");
+		
+		//HttpSession session = request.getSession();
 
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
@@ -24,28 +27,21 @@
 		//Get parameters from the HTML form at the HelloWorld.jsp
 		String thisEmail = request.getParameter("email");
 		String thisPW = request.getParameter("password");
-		
-		String q = "SELECT email FROM accounts WHERE password = '" + thisPW + "'";
-		out.println("\n"+thisPW);
-		out.println("result set");
-		ResultSet result = stmt.executeQuery(q);
-		if (result.wasNull()){
-			out.print("Account does not exist.");
-		}
-		out.println("account exist");
-		while(result.next()){
-			String checking = result.getString("email");
-			out.println("\n"+checking+"\n"+thisEmail);
-			if (checking.equals(thisEmail)){
-				con.close();
-				out.println("password correct");
-				response.sendRedirect("webpage.jsp");
-				out.println("not redirected");
-			}else{
-				out.print("Password does not match. Please try again.");
-				con.close();
-			}
-		}
+
+	    Statement st = con.createStatement();
+	    ResultSet rs;
+	    rs = st.executeQuery("select * from accounts where email='" + thisEmail + "' and password='" + thisPW + "'");
+	    if (rs.next()) {
+	        session.setAttribute("email", thisEmail); // the username will be stored in the session
+	        //out.println("Welcome " + thisEmail);
+	        con.close();
+	        //out.println("<a href='logout.jsp'>Log out</a>");
+	        response.sendRedirect("webpage.jsp");
+	    } else {
+	    	con.close();
+	        out.println("Invalid log-in. <a href='auction-login.jsp'>Try again.</a>");
+	    }
+	
 		
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		//con.close();
