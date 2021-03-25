@@ -25,20 +25,21 @@
 		String thisEmail = request.getParameter("email");
 		String thisPW = request.getParameter("password");
 		
+		out.println(thisEmail+thisPW);
 		
 		String q = "SELECT email FROM adminStaff WHERE password = '" + thisPW + "'";
 		
 		ResultSet result = stmt.executeQuery(q);
-		if (result.wasNull()){
-			out.print("Account does not exist.");
-			response.sendRedirect("auction-login.jsp");
+		boolean bool = result.wasNull();
+		if (!bool){
+			out.println("Invalid log-in. <a href='auction-login.jsp'>Try again.</a>");
 		}
 		
 		while(result.next()){
 			String checking = result.getString("email");
+			out.println(checking+"...");
 			if (!checking.equals(thisEmail)){
-				out.print("Password does not match. Please try again.");
-				response.sendRedirect("auction-login.jsp");
+				out.println("Invalid log-in. <a href='auction-login.jsp'>Try again.</a>");
 			}
 		}
 
@@ -74,5 +75,8 @@
 	out.print("Could not login.");
 	}
 %>
+
+<a href="auction-login.jsp">Auction Login</a>
+<a href="logout.jsp">Logout</a>
 </body>
 </html>

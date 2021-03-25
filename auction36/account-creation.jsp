@@ -51,5 +51,10 @@
 		out.print("Account could not be created.");
 	}
 %>
+
+
+<a href="auction-login.jsp">Auction Login</a>
+<a href="logout.jsp">Logout</a>
+
 </body>
 </html>
