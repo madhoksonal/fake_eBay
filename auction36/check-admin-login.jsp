@@ -28,7 +28,6 @@
 		
 		String q = "SELECT email FROM adminStaff WHERE password = '" + thisPW + "'";
 		
-		
 		ResultSet result = stmt.executeQuery(q);
 		if (result.wasNull()){
 			out.print("Account does not exist.");

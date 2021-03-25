@@ -17,7 +17,7 @@
 		Class.forName("com.mysql.jdbc.Driver");
 		ApplicationDB db = new ApplicationDB();	
 		//Connection con = db.getConnection();
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay","root", "D1am0nd4");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay","root", "beetroot");
 		
 		//HttpSession session = request.getSession();
 

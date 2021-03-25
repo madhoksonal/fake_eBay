@@ -15,9 +15,10 @@
 		You have successfully logged in.
 
 		<!--  
-		<% try {
+		<% 
+			Class.forName("com.mysql.jdbc.Driver"); 
 			ApplicationDB db = new ApplicationDB();	
-			Connection con = db.getConnection();		
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay", "root", "beetroot");	
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
@@ -28,7 +29,7 @@
 			
 			/** how to import username/email from auction-login.jsp????**/
 			/** need to be able to share this will all the pages????**/
-		<%
+		
 		if ((session.getAttribute("email") == null)) {
 		%>
 		You are not logged in. <br/>
@@ -39,7 +40,10 @@
 			<br>
 			Currently logged in: <%=session.getAttribute("email")%> <a href='logout.jsp'>Log out.</a>
 			<%
-			}%>
-
+			
+		}
+		con.close();
+	%>
+		-->
 	</body>
 </html>
