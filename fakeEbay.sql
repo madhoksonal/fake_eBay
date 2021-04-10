@@ -32,6 +32,35 @@ CREATE TABLE `customerRep` (
   PRIMARY KEY (`email`)
 );
 
+DROP TABLE IF EXISTS `endUser`;
+CREATE TABLE `endUser` (
+	`account_id` integer NOT NULL DEFAULT '',
+	`password` varchar (20), 
+    `email` varchar(20),
+    `login_name` varchar(10),
+    `upper_bid_limit` float,
+    `isBuyer` boolean,
+    `isSeller` boolean,
+    PRIMARY KEY (`account_id`)
+    ); 
+
+DROP TABLE IF EXISTS `Product`;
+CREATE TABLE `endUser` (
+);
+
+DROP TABLE IF EXISTS `AuctionEvent`;
+CREATE TABLE `AuctionEvent` (
+);
+
+DROP TABLE IF EXISTS `ParticipatesIn`;
+CREATE TABLE `ParticipatesIn` (
+);
+
+DROP TABLE IF EXISTS `Alert`;
+CREATE TABLE `Alert` (
+);
+	
+
 --
 -- inserting adminStaff and customerRep manually
 --
