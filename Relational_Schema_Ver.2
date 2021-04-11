@@ -1,0 +1,69 @@
+Group 36 - Project Deliverable 2 (Relational Schema)
+03/07/2021
+
+AdminStaff (account_id: int (PK),
+  password: varchar (20),
+  email: varchar(20), 
+  login_name: varchar(10))
+
+CustomerRep (account_id: int (PK),
+  password: varchar (20),
+  email: varchar(20),
+  login_name: varchar(10))
+
+Question_input_Asks_Answers (question#: int (PK),
+  question:varchar(100),
+  keywords: varchar (30),
+  answer: varchar(100)
+  user.account_id: int,
+  Account_account_id (FK),
+  rep.account_id: int,
+  CustomerRep_account_id (FK)
+)
+
+endUser (account_id: int(PK),
+  password: varchar (20),
+  email: varchar(20),
+  login_name:varchar(10),
+  isBuyer: boolean,
+  isSeller: boolean
+)
+
+Product (product_ID: int (PK),
+  image: varchar(100),
+  screen size: int,
+  weight: float,
+  condition: varchar(20),
+  description: varchar(50),
+  brand: varchar(20),
+  operating_system: varchar(20),
+  isLaptop: boolean,
+  isTablet: boolean,
+  isDesktop: boolean)
+  
+AuctionEvent (product_ID: int (PK),
+  account_id: int (PK),
+  upper_bid_limit: float,
+  start date: date,
+  closing date: date,
+  start time: time,
+  closing time: time,
+  initial price: float,
+  bid increment: float,
+  secret minimum: float,
+  Product_product_ID (FK) not null,
+  endUser_account_id (FK) not null)
+
+ParticipatesIn (account_id: int (PK),
+  product_ID: int (PK),
+  current bid: float,
+  endUser_account_id (FK),
+  Product_product_ID (FK) not null) 
+
+Alert(product_ID: int (PK),
+  account_id: int (PK),
+  alert#: int (PK),
+  Exists: boolean,
+  Product_product_ID (FK) not null,
+  endUser_account_id (FK) not null,
+)
