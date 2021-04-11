@@ -59,7 +59,7 @@ body {
 		<hr class="dashed">
 		
 		
-		Automatic Buyer Bidding	
+		Set Secret Upper Limit for Buyer 	
 		<br> 
 		<br> 
 <form action="update_auto_bid.jsp" >
