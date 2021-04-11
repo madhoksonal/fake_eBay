@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" 
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <!--Import some libraries that have classes that we need -->
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -68,47 +68,27 @@ body {
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
-		//Get parameters from the HTML form at the HelloWorld.jsp
-		String user = request.getParameter("userName"); //idk how to get the username/email of who is logged on currently //this could cause security issues 
-															//users can affect others' accounts if they know their usernames 
+		//Get parameters from the HTML form at the buyer-set-upper-bid.jsp
 		String upperLimit = request.getParameter("upperLimit"); 
 		int upperLimitInt = Integer.parseInt(upperLimit); 
 		
-		System.out.println(upperLimitInt);
+		String email = (String) session.getAttribute("email");
 		
-		//Make an insert statement for the endUser table:
-				String update = "UPDATE endUser" + " SET upper_bid_limit =" + upperLimitInt + " WHERE login_name ='" + user + "'";
+		//only execute sql statement if user is logged in 
+		if (email != null) {
+		//System.out.println(upperLimitInt);
+		
+		//Make an update statement for the endUser table:
+				String update = "UPDATE endUser" + " SET upper_bid_limit =" + upperLimitInt + " WHERE email ='" + email + "'";
 		
 		stmt.executeUpdate(update);
 		
-		out.print("Upper Bit limit set! for " + user);
+		out.print("Upper Bit limit set! for " + email);
+		}
 		
-		/*
-		String newEmail = request.getParameter("email");
-		String newUser = request.getParameter("username");
-		String newPW = request.getParameter("password");
-
-
-		//Make an insert statement for the Sells table:
-		String insert = "INSERT INTO accounts(login_name, email, password, upper_bid_limit)"
-				+ "VALUES (?, ?, ?, NULL)";
+		out.print("You are not logged in. Please log in or create an account to access this function."); 
 		
-		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
-		PreparedStatement ps = con.prepareStatement(insert);
-
-		//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-		ps.setString(1, newUser);
-		ps.setString(2, newEmail);
-		ps.setString(3, newPW);
-		//Run the query against the DB
-		ps.executeUpdate();
-
-		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
-		con.close();
-		
-
-		out.print("Account created!");
-		*/
+	
 	} catch (Exception ex) {
 		out.print(ex);
 		out.print("Upper Bid limit not set");

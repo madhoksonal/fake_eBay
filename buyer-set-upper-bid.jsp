@@ -56,15 +56,11 @@ body {
   <p></p>
 </div>
 		
-		<hr class="dashed">
-		
-		
+		<hr class="dashed">	
 		Set Secret Upper Limit for Buyer 	
 		<br> 
 		<br> 
 <form action="update_auto_bid.jsp" >
- <label for="user">Enter your Username</label><br>
-   <input type="text" id="userName" name="userName" ><br>
     <label for="bidLimit">Set your Upper Bid Limit</label><br>
      <input type="text" id="upperLimit" name="upperLimit"><br><br>
   <input type="submit" value="Set Upper Limit">
