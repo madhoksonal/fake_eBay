@@ -39,7 +39,6 @@ CREATE TABLE `endUser` (
 	`password` varchar (20), 
     `email` varchar(20),
     `login_name` varchar(10),
-    `upper_bid_limit` float,
     `isBuyer` boolean,
     `isSeller` boolean,
     PRIMARY KEY (`account_id`)
@@ -66,14 +65,14 @@ CREATE TABLE `Product` (
 DROP TABLE IF EXISTS `AuctionEvent`;
 CREATE TABLE `AuctionEvent` (
 	`product_id` integer NOT NULL DEFAULT 0,
-    `account_id` integer NOT NULL DEFAULT 0,
-    `upper_bid_limit` float,
+    `account_id` integer NOT NULL DEFAULT 0, -- this is the seller!
+    `upper_bid_limit` float, -- why is this here? should be with buyers??
     `start_date` date,
     `closing_date` date,
     `start_time` time,
     `closing_time` time,
     `initial_price` float, -- should we change float to decimal precision 2?
-    `bid_increment` float,
+    `bid_increment` float, 
     `secret_minimum` float,
     PRIMARY KEY (`product_id`, `account_id`),
     FOREIGN KEY (`product_id`) REFERENCES Product(`product_id`),
@@ -81,13 +80,13 @@ CREATE TABLE `AuctionEvent` (
 );
 
 DROP TABLE IF EXISTS `ParticipatesIn`;
-CREATE TABLE `ParticipatesIn` (
+CREATE TABLE `ParticipatesIn` ( -- these are all the "buyers"
 	`product_id` integer NOT NULL DEFAULT 0,
     `account_id` integer NOT NULL DEFAULT 0,
     `current_bid` float NOT NULL DEFAULT 0,
     PRIMARY KEY (`product_id`, `account_id`),
-    FOREIGN KEY (`account_id`) REFERENCES endUser(`account_id`),
-    FOREIGN KEY (`product_id`) REFERENCES Product(`product_id`)
+    FOREIGN KEY (`product_id`) REFERENCES Product(`product_id`),
+    FOREIGN KEY (`account_id`) REFERENCES endUser(`account_id`)
 );
 
 DROP TABLE IF EXISTS `Alert`;
@@ -124,7 +123,36 @@ insert into accounts values
 ('eeyore','donkeyboy@hotmail.com', '33y0r3', NULL),
 ('chrisrobin','robinchris@gmail.com', 'fr!endsh!p', NULL);
 
+insert into endUser values
+(500, 'pw1', 'ds@gmail.com', 'dhruvi', NULL, NULL),
+(501, 'pw2', 'at@yahoo.com', 'amruta', NULL, NULL),
+(502, 'pw3', 'sm@yahoo.com', 'sonal', NULL, NULL),
+(503, 'pw4', 'ka@gmail.com', 'kateri', NULL, NULL);
+
+insert into Product values
+(100, 13, 2.29, 'Brand New', NULL, 'Samsung', 'Galaxy Chromebook', 'Chrome OS', 1, 0, 0),
+(101, 15, NULL, 'Like New', NULL, 'Samsung', 'Galaxy Book Flex', 'Windows', 1, 0, 0),
+(102, 11, NULL, 'Brand New', NULL, 'Samsung', 'Galaxy Tab S7', 'Android', 0, 1, 0),
+(103, 21, NULL, 'Very Good', NULL, 'Apple', 'iMac', 'Apple OS', 0, 0, 1),
+(104, 27, NULL, 'Like New', NULL, 'Apple', 'iMac', 'Apple OS', 0, 0, 1),
+(105, 13, NULL, 'Brand New', NULL, 'Apple', 'Macbook Pro', 'Apple OS', 1, 0, 0),
+(106, 10, NULL, 'Very Good', NULL, 'Apple', 'iPad Air', 'Apple OS', 0, 1, 0),
+(107, 8, NULL, 'Brand New', NULL, 'Apple', 'iPad Mini', 'Apple OS', 0, 1, 0),
+(108, NULL, NULL, 'Brand New', NULL, 'HP', 'Omen Desktop', 'Windows', 0, 0, 1);
+
+insert into AuctionEvent values
+(104, 503, NULL, '2021-03-21', '2020-04-30', '12:30', '14:30', 1099.99, 1.00, 1299.99),
+(100, 502, NULL, '2021-03-30', '2020-04-15', '12:30', '14:30', 699.99, 1.00, 800);
+
+insert into ParticipatesIn values  -- ParticipatesIn doesn't work? Can't obtain sellers
+(104, 501, 1100.00),
+(100, 504, 700.00);
+
 -- Queries for testing
 select * from accounts;
+select * from endUser;
 select * from adminStaff;
 select * from customerRep;
+select * from Product;
+select * from AuctionEvent;
+select * from ParticipatesIn;
