@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `fakeEbay`;
 CREATE DATABASE IF NOT EXISTS `fakeEbay`;
 USE `fakeEbay`;
 
@@ -31,6 +32,75 @@ CREATE TABLE `customerRep` (
   `password` varchar(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`email`)
 );
+
+DROP TABLE IF EXISTS `endUser`;  -- merge this with the accounts table and update other pages
+CREATE TABLE `endUser` (
+	`account_id` integer NOT NULL DEFAULT 0,
+	`password` varchar (20), 
+    `email` varchar(20),
+    `login_name` varchar(10),
+    `upper_bid_limit` float,
+    `isBuyer` boolean,
+    `isSeller` boolean,
+    PRIMARY KEY (`account_id`)
+    ); 
+
+DROP TABLE IF EXISTS `Product`;
+CREATE TABLE `Product` (
+	`product_id` integer NOT NULL DEFAULT 0,
+	`screen size` int,
+    `weight` float,
+    `condition` ENUM('Brand New', 'Like New', 'Very Good', 'Good', 'Acceptable'),
+    `description` varchar(50),
+    `brand` varchar(20),
+    `model` varchar(20),
+    `operating_system` varchar(20),
+    `isLaptop` boolean,
+    `isTablet` boolean,
+    `isDesktop` boolean,
+    PRIMARY KEY (`product_id`)
+);
+ -- don't think we need an image, can maybe remove description?
+ -- need a system that generates a new ID (maybe query highest ID # and add 1)
+
+DROP TABLE IF EXISTS `AuctionEvent`;
+CREATE TABLE `AuctionEvent` (
+	`product_id` integer NOT NULL DEFAULT 0,
+    `account_id` integer NOT NULL DEFAULT 0,
+    `upper_bid_limit` float,
+    `start_date` date,
+    `closing_date` date,
+    `start_time` time,
+    `closing_time` time,
+    `initial_price` float, -- should we change float to decimal precision 2?
+    `bid_increment` float,
+    `secret_minimum` float,
+    PRIMARY KEY (`product_id`, `account_id`),
+    FOREIGN KEY (`product_id`) REFERENCES Product(`product_id`),
+    FOREIGN KEY (`account_id`) REFERENCES endUser(`account_id`)
+);
+
+DROP TABLE IF EXISTS `ParticipatesIn`;
+CREATE TABLE `ParticipatesIn` (
+	`product_id` integer NOT NULL DEFAULT 0,
+    `account_id` integer NOT NULL DEFAULT 0,
+    `current_bid` float NOT NULL DEFAULT 0,
+    PRIMARY KEY (`product_id`, `account_id`),
+    FOREIGN KEY (`account_id`) REFERENCES endUser(`account_id`),
+    FOREIGN KEY (`product_id`) REFERENCES Product(`product_id`)
+);
+
+DROP TABLE IF EXISTS `Alert`;
+CREATE TABLE `Alert` (
+	`product_id` integer NOT NULL DEFAULT 0,
+    `account_id` integer NOT NULL DEFAULT 0,
+    `alert_number` integer NOT NULL DEFAULT 0,
+    `exists` boolean,
+    PRIMARY KEY (`product_id`, `account_id`, `alert_number`),
+    FOREIGN KEY (`product_id`) REFERENCES Product(`product_id`),
+    FOREIGN KEY (`account_id`) REFERENCES endUser(`account_id`)
+);
+	
 
 --
 -- inserting adminStaff and customerRep manually
