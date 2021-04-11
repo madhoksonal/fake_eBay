@@ -30,12 +30,13 @@ endUser (account_id: int(PK),
 )
 
 Product (product_ID: int (PK),
-  image: varchar(100),
+  image: varchar(100),      // Removed image -- don't think we should worry about this
   screen size: int,
   weight: float,
-  condition: varchar(20),
-  description: varchar(50),
+  condition: varchar(20),    //Changed to ENUM in SQL - Brand New, Like New, Very Good, Good, Acceptable
+  description: varchar(50),  // Do we really need description? Consider taking out
   brand: varchar(20),
+  model: varchar(20),        //Added model, need to update this in the schema
   operating_system: varchar(20),
   isLaptop: boolean,
   isTablet: boolean,
