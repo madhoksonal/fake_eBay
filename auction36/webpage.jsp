@@ -21,7 +21,7 @@
 			<br>
 			Currently logged in: <%=session.getAttribute("email")%>
 			<br>
-			<a href='browsing.jsp'>Search for available products.</a>
+			<a href='browsing.jsp'>Browse auctions and products.</a>
 			<br>
 			<a href='logout.jsp'>Log out.</a>
 			<%
