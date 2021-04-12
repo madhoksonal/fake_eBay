@@ -1,0 +1,2 @@
+SELECT * FROM AuctionEvent a JOIN ParticipatesIn pi USING(product_id);
+SELECT * FROM endUser u JOIN ParticipatesIn pi USING(account_id);
