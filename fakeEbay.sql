@@ -16,6 +16,8 @@ CREATE TABLE `accounts` (
 );
 
 -- need to implement account ID? temporarily using email as pk
+-- should we used email as primary key and assume no user can have the same email?
+-- can delete this once end user is consistent with pages
 
 DROP TABLE IF EXISTS `adminStaff`;
 CREATE TABLE `adminStaff` (
@@ -47,19 +49,20 @@ CREATE TABLE `endUser` (
 DROP TABLE IF EXISTS `Product`;
 CREATE TABLE `Product` (
 	`product_id` integer NOT NULL DEFAULT 0,
-	`screen size` int,
+	`screen_size` int,
     `weight` float,
     `condition` ENUM('Brand New', 'Like New', 'Very Good', 'Good', 'Used'),
     `description` varchar(50),
     `brand` varchar(20),
     `model` varchar(20),
     `operating_system` varchar(20),
-    `isLaptop` boolean,
+    `isLaptop` boolean, -- should we change this to ENUM??
     `isTablet` boolean,
     `isDesktop` boolean,
     PRIMARY KEY (`product_id`)
 );
  -- don't think we need an image, can maybe remove description?
+ -- also want to remove weight
  -- need a system that generates a new ID (maybe query highest ID # and add 1)
 
 DROP TABLE IF EXISTS `AuctionEvent`;
@@ -71,7 +74,7 @@ CREATE TABLE `AuctionEvent` (
     `closing_date` date,
     `start_time` time,
     `closing_time` time,
-    `initial_price` float, -- should we change float to decimal precision 2?
+    `initial_price` float, -- should we change float to decimal precision 2 for price stuff? (decimal(9,2))
     `bid_increment` float, 
     `secret_minimum` float,
     PRIMARY KEY (`product_id`, `account_id`),
@@ -89,7 +92,7 @@ CREATE TABLE `ParticipatesIn` ( -- these are all the "buyers"
     FOREIGN KEY (`account_id`) REFERENCES endUser(`account_id`)
 );
 
-DROP TABLE IF EXISTS `Alert`;
+DROP TABLE IF EXISTS `Alert`;  --- I THINK WE NEED TO RE-DO SCHEMA, SHOULD BE SIMILAR TO PRODUCTS TABLE BUT ALLOWS FIELDS TO BE NULL
 CREATE TABLE `Alert` (
 	`product_id` integer NOT NULL DEFAULT 0,
     `account_id` integer NOT NULL DEFAULT 0,
@@ -144,7 +147,7 @@ insert into AuctionEvent values
 (104, 503, NULL, '2021-03-21', '2020-04-30', '12:30', '14:30', 1099.99, 1.00, 1299.99),
 (100, 502, NULL, '2021-03-30', '2020-04-15', '12:30', '14:30', 699.99, 1.00, 800);
 
-insert into ParticipatesIn values  -- ParticipatesIn doesn't work? Can't obtain sellers
+insert into ParticipatesIn values  -- DOESN'T WORK!! Can't perform queries
 (104, 501, 1100.00),
 (100, 504, 700.00);
 
@@ -156,3 +159,9 @@ select * from customerRep;
 select * from Product;
 select * from AuctionEvent;
 select * from ParticipatesIn;
+
+SELECT * FROM AuctionEvent a, Product p WHERE a.product_id = p.product_id;
+
+-- Queries for History
+SELECT * FROM AuctionEvent a JOIN ParticipatesIn pi USING(product_id);
+SELECT * FROM endUser u JOIN ParticipatesIn pi USING(account_id);
