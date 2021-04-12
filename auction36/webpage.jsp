@@ -10,26 +10,7 @@
 		<title>Homepage</title>
 	</head>
 	<body>
-		Home page!!!
-		
-		You have successfully logged in.
-
-		<!--  
-		<% 
-			Class.forName("com.mysql.jdbc.Driver"); 
-			ApplicationDB db = new ApplicationDB();	
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay", "root", "beetroot");	
-
-			//Create a SQL statement
-			Statement stmt = con.createStatement();
-			//Get the selected radio button from the index.jsp
-			String user = request.getParameter("username");
-			//out.print(user);
-
-			
-			/** how to import username/email from auction-login.jsp????**/
-			/** need to be able to share this will all the pages????**/
-		
+		<%
 		if ((session.getAttribute("email") == null)) {
 		%>
 		You are not logged in. <br/>
@@ -38,16 +19,13 @@
 			%>
 			You are logged in.
 			<br>
-			Currently logged in: <%=session.getAttribute("email")%> <a href='logout.jsp'>Log out.</a>
+			Currently logged in: <%=session.getAttribute("email")%>
+			<br>
+			<a href='browsing.jsp'>Search for available products.</a>
+			<br>
+			<a href='logout.jsp'>Log out.</a>
 			<%
-			
-		}
-		con.close();
-	%>
-		-->
+			}%>
 
-	<a href="auction-login.jsp">Auction Login</a>
-	<a href="logout.jsp">Logout</a>
-	
 	</body>
 </html>
