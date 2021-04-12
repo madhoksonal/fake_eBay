@@ -17,7 +17,7 @@
 		Class.forName("com.mysql.jdbc.Driver");
 		ApplicationDB db = new ApplicationDB();	
 		//Connection con = db.getConnection();
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay","root", "beetroot");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay","root", "D1am0nd4");
 		
 		//HttpSession session = request.getSession();
 
@@ -30,7 +30,7 @@
 
 	    Statement st = con.createStatement();
 	    ResultSet rs;
-	    rs = st.executeQuery("select * from accounts where email='" + thisEmail + "' and password='" + thisPW + "'");
+	    rs = st.executeQuery("select * from endUser where email='" + thisEmail + "' and password='" + thisPW + "'");
 	    if (rs.next()) {
 	        session.setAttribute("email", thisEmail); // the username will be stored in the session
 	        //out.println("Welcome " + thisEmail);
