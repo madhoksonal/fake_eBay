@@ -49,7 +49,7 @@ CREATE TABLE `Product` (
 	`product_id` integer NOT NULL DEFAULT 0,
 	`screen size` int,
     `weight` float,
-    `condition` ENUM('Brand New', 'Like New', 'Very Good', 'Good', 'Acceptable'),
+    `condition` ENUM('Brand New', 'Like New', 'Very Good', 'Good', 'Used'),
     `description` varchar(50),
     `brand` varchar(20),
     `model` varchar(20),
