@@ -20,26 +20,36 @@
 			<h1> Search for an auction here! </h1>
 			<br>
 			<!-- Query Options
-			0) All auctions
-			1) Name (Model)
-			2) Brand
-			3) Operating System
-			4) Price
-			5) Screensize // lowkey want to get rid of weight 
+			0) All auctions Done
+			1) Name (Model) DONE
+			2) Brand DONE
+			3) Operating System DONE
+			4) Price DONE
+			5) Screensize// DONE // lowkey want to get rid of weight 
 			6) Type 
-			7) Condition
+			7) Condition //DONE
 			 -->
 			 
-			 See all available auctions!
-			 <form action="webpage.jsp">
-			 	<input type="submit" value="See all Products." />
+			 Look at auctions.
+			 <form action="all-auctions.jsp">
+			 	<input type="submit" name="all" value="See all active auctions." />
+			 </form>
+			 <br>
+			 <form action="all-auctions.jsp"> <!--  update this later -->
+			 	<input type="text" name="user_history" value = "Enter auction id">
+			 	<input type="submit" name="by_quction"  value="See history for specific auction." />
+			 </form>
+			 <br>
+			 <form action="all-auctions.jsp"> <!--  update this later -->
+			 	<input type="text" name="user_history" value = "Enter user id">
+			 	<input type="submit" name="by_user"  value="See history for specific user." />
 			 </form>
 			 <br>
 			 
 			 
 			 Search by Brand, Model, or Operating System!
-			 <form method='post' action="webpage.jsp">
-			 	</form><td>Keyword:</td><td><input type="text" name="text_search"></td>
+			 <form method='post' action="query-keyword.jsp">
+			 	<input type="text" name="text_search">
 			   	<br>
 			 	<input type="radio" name="command" value="model"/>Model
 			 	<input type="radio" name="command" value="brand"/>Brand
@@ -49,19 +59,47 @@
 			 </form>
 			 <br>
 			 
-			 
-			  Search by Screen Size!
-			 <form method='post' action="webpage.jsp">
-			 	<select name="size" size=1>
-					<option value="15">15 and higher</option>
-					<option value="13">13 and lower</option>
-					<option value="8.0">$8.0 and under</option>
-				</select>&nbsp;<br> <input type="submit" value="submit">
+			  Search by Max Price! <!-- will return anything lower that the search price -->
+			 <form method='post' action="query-price.jsp">
+			 <input type="text" value="0.00" name="price_search">
+			 <br>
+			 	<input type="submit" value="submit" />
 			 </form>
 			 <br>
 			 
 			 
+			  Search by Minimum Screen Size!
+			 <form method='post' action="query-size.jsp">
+			 <input type="text" value="13" name="screen_search">
+			 <br>
+			 	<input type="submit" value="submit" />
+			 </form>
+			 <br>
+			 
+			 Search by Condition!
+			 <form method='post' action="query-condition.jsp">
+			 	<select name="condition" size=1>
+					<option value="Brand New">Brand New</option>
+					<option value="Like New">Like New</option>
+					<option value="Very Good">Very Good</option>
+					<option value="Good">Good</option>
+					<option value="Used">Used</option>
+				</select>&nbsp;<br> <input type="submit" value="submit">
+			 </form>
+			 <br>
+			 
+			 Search by Product Type!
+			 <form method='post' action="query-type.jsp">
+			 	<select name="type" size=1>
+					<option value="Laptop">Laptop</option>
+					<option value="Tablet">Tablet</option>
+					<option value="Desktop">Desktop</option>
+				</select>&nbsp;<br> <input type="submit" value="submit">
+			 </form>
+			 <br>
+			 
 			 Return to <a href= 'webpage.jsp'> Homepage</a>
+			 
 			<%
 			}%>
 			
