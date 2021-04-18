@@ -30,9 +30,9 @@
 			7) Condition //DONE
 			 -->
 			 
-			 Look at auctions.
+			 Look at Auctions:
 			 <form action="all-auctions.jsp">
-			 	<input type="submit" name="all" value="See all active auctions." />
+			 	<input type="submit" name="all" value="All active options." />
 			 </form>
 			 <br>
 			 <form action="all-auctions.jsp"> <!--  update this later -->
@@ -48,7 +48,7 @@
 			 
 			 
 			 Search by Brand, Model, or Operating System!
-			 <form method='post' action="query-keyword.jsp">
+			 <form method='post' action="search-queries.jsp">
 			 	<input type="text" name="text_search">
 			   	<br>
 			 	<input type="radio" name="command" value="model"/>Model
@@ -59,25 +59,31 @@
 			 </form>
 			 <br>
 			 
-			  Search by Max Price! <!-- will return anything lower that the search price -->
-			 <form method='post' action="query-price.jsp">
-			 <input type="text" value="0.00" name="price_search">
+			  Search by Initial Price! <!-- will return anything lower that the search price -->
+			 <form method='post' action="search-queries.jsp">
+			 <input type="text" name="price_search" value="0.00" >
+			 <br>
+			 <input type="radio" name="command" value="min"/>Minimum
+			 <input type="radio" name="command" value="max"/>Maximum
 			 <br>
 			 	<input type="submit" value="submit" />
 			 </form>
 			 <br>
 			 
 			 
-			  Search by Minimum Screen Size!
-			 <form method='post' action="query-size.jsp">
-			 <input type="text" value="13" name="screen_search">
+			  Search by Screen Size!
+			 <form method='post' action="search-queries.jsp">
+			 <input type="text" name="screen_search" value="13" >
+			 <br>
+			 <input type="radio" name="command" value="min"/>Minimum
+			 <input type="radio" name="command" value="max"/>Maximum
 			 <br>
 			 	<input type="submit" value="submit" />
 			 </form>
 			 <br>
 			 
 			 Search by Condition!
-			 <form method='post' action="query-condition.jsp">
+			 <form method='post' action="search-queries.jsp">
 			 	<select name="condition" size=1>
 					<option value="Brand New">Brand New</option>
 					<option value="Like New">Like New</option>
@@ -89,7 +95,7 @@
 			 <br>
 			 
 			 Search by Product Type!
-			 <form method='post' action="query-type.jsp">
+			 <form method='post' action="search-queries.jsp">
 			 	<select name="type" size=1>
 					<option value="Laptop">Laptop</option>
 					<option value="Tablet">Tablet</option>
