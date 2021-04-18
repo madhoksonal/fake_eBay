@@ -144,13 +144,16 @@ insert into Product values
 (101, 'Samsung', 'Galaxy Book Flex', 'Windows', 15, 'Like New', 1, 0, 0),
 (102, 'Samsung', 'Galaxy Tab S7', 'Android', 11, 'Brand New', 0, 1, 0),
 (103, 'Apple', 'iMac', 'Apple OS', 21, 'Good', 0, 0, 1),
-(104, 'Apple', 'iMac', 'Apple OS', 27, 'Like New', 1, 0, 1),
+(104, 'Apple', 'iMac', 'Apple OS', 27, 'Like New', 0, 0, 1),
 (105, 'Apple', 'Macbook Pro', 'Apple OS', 13, 'Brand New', 1, 0, 0),
 (106, 'Apple', 'iPad Air', 'Apple OS', 10, 'Used', 0, 1, 0),
 (107, 'Apple', 'iPad Mini', 'Apple OS', 8, 'Brand New', 0, 1, 0),
 (108, 'HP', 'Omen Desktop', 'Windows', 21, 'Brand New', 1, 0, 1);
 
 insert into Sells values -- This is an auction
-(503, 104, 200, '2021-03-21', '2020-04-30', '12:30', '14:30', 1099.99, 1.00, 1299.99);
+(500, 100, 201, '2020-12-21', '2021-01-30', '12:30', '14:30', 699.99, 1.00, 700),
+(501, 102, 202, '2021-01-21', '2021-02-30', '12:30', '14:30', 659.99, 1.00, 800),
+(502, 106, 203, '2021-02-21', '2021-03-30', '12:30', '14:30', 1099.99, 1.00, 1299.99),
+(503, 108, 204, '2021-03-21', '2021-04-30', '12:30', '14:30', 1299.99, 1.00, 1350);
 
 -- Buys is incomplete.
