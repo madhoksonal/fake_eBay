@@ -65,7 +65,6 @@
 							<td><%= result.getString("p.brand") %></td>
 							<td><%= result.getString("s.initial_price") %></td>
 							<td><%= result.getString("p.screen_size") %></td>
-							<td><a href= 'webpage.jsp'> More Info</a></td>
 							<td><a href= 'webpage.jsp'> See Current Bids</a></td>
 							<td><a href= 'webpage.jsp'> Place Bid</a></td>
 					</tr>
@@ -80,7 +79,6 @@
 							<td><%= result.getString("p.brand") %></td>
 							<td><%= result.getString("s.initial_price") %></td>
 							<td><%= result.getString("p.screen_size") %></td>
-							<td><a href= 'webpage.jsp'> More Info</a></td>
 							<td><a href= 'webpage.jsp'> See Current Bids</a></td>
 							<td><a href= 'webpage.jsp'> Place Bid</a></td>
 						</tr>
@@ -101,7 +99,7 @@
 				
 			} catch (Exception ex) {
 				out.print(ex);
-				out.print("Could not login.");
+				out.print("Error.");
 			}
 		}
 		%>
