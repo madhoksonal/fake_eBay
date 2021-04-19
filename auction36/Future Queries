@@ -1,0 +1,10 @@
+1. View all the history of bids for any specific auction
+
+SELECT * FROM Buys b JOIN Sells s USING (auction_ID) WHERE auction_ID = (argument)
+
+2. List all auctions of a specific buyer
+SELECT * FROM  Buys b WHERE account_ID = (argumenet)
+
+3. List "similar" items on auctions in the preceding month
+-- what constitues as similar?
+-- how to work with month?
