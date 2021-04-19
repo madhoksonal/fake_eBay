@@ -23,6 +23,8 @@
 			<br>
 			<a href='browsing.jsp'>Browse auctions and products.</a>
 			<br>
+			<a href='alerts.jsp'>Set up/view alerts.</a>
+			<br>
 			<a href='logout.jsp'>Log out.</a>
 			<%
 			}%>
