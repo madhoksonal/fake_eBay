@@ -18,34 +18,22 @@
 		<%} else {
 			%>
 			<h1> Search for an auction here! </h1>
-			<br>
-			<!-- Query Options
-			0) All auctions Done
-			1) Name (Model) DONE
-			2) Brand DONE
-			3) Operating System DONE
-			4) Price DONE
-			5) Screensize// DONE // lowkey want to get rid of weight 
-			6) Type 
-			7) Condition //DONE
-			 -->
+			<h2>Look at Auctions:</h2>
+			<form method='post' action="search-auctions.jsp">
+				<input type="radio" name="command" value="all"/>All Active Auctions
+				<br>
+				Enter ID <input type="text" name="id" value="201">
+				<br>
+				<input type="radio" name="command" value="auction_ID"/>Specific Auction
+				<br>
+				<input type="radio" name="command" value="seller_ID"/>Auctions by Seller
+				<br>
+				<input type="radio" name="command" value="buyer_ID"/>Auctions by Buyer
+				<br>
+				<input type="submit" value="submit" />
+			</form>
 			 
-			 Look at Auctions:
-			 <form action="all-auctions.jsp">
-			 	<input type="submit" name="all" value="All active options." />
-			 </form>
-			 <br>
-			 <form action="all-auctions.jsp"> <!--  update this later -->
-			 	<input type="text" name="user_history" value = "Enter auction id">
-			 	<input type="submit" name="by_quction"  value="See history for specific auction." />
-			 </form>
-			 <br>
-			 <form action="all-auctions.jsp"> <!--  update this later -->
-			 	<input type="text" name="user_history" value = "Enter user id">
-			 	<input type="submit" name="by_user"  value="See history for specific user." />
-			 </form>
-			 <br>
-			 
+			 <h2>Search by Criteria:</h2>
 			 
 			 Search by Brand, Model, or Operating System!
 			 <form method='post' action="search-queries.jsp">
@@ -66,7 +54,10 @@
 			 <input type="radio" name="command" value="min"/>Minimum
 			 <input type="radio" name="command" value="max"/>Maximum
 			 <br>
-			 	<input type="submit" value="submit" />
+			 Sort by <input type="radio" name="sort_by" value="asc"/>Ascending
+			 <input type="radio" name="sort_by" value="desc"/>Descending
+			 <br>
+			 <input type="submit" value="submit" />
 			 </form>
 			 <br>
 			 
@@ -77,6 +68,9 @@
 			 <br>
 			 <input type="radio" name="command" value="min"/>Minimum
 			 <input type="radio" name="command" value="max"/>Maximum
+			 <br>
+			 Sort by <input type="radio" name="sort_by" value="asc"/>Ascending
+			 <input type="radio" name="sort_by" value="desc"/>Descending
 			 <br>
 			 	<input type="submit" value="submit" />
 			 </form>
