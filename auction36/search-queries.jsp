@@ -30,16 +30,24 @@
 				String size = request.getParameter("screen_search");
 				String condition = request.getParameter("condition");
 				String type = request.getParameter("type");
+				String sorting = request.getParameter("sort_by");
 				
 				String query = " ";
 				
 				if (text_search != null){
-					query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p." + command + " LIKE '"+ text_search +"'";
+					if (sorting != null){
+						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p." + command + " LIKE '"+ text_search +"' ORDER BY " + command + " " + sorting;
+					}else{
+						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p." + command + " LIKE '"+ text_search +"'";
+					}
 				} else if (price != null){
 					if (command.equals("max")){
 						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and s.initial_price < " + price;				
 					} else if (command.equals("min")) {
 						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and s.initial_price >= " + price;
+					}
+					if (sorting != null){
+						query = query + " ORDER BY s.initial_price " + sorting;
 					}
 					
 				} else if (size != null){
@@ -47,6 +55,9 @@
 						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p.screen_size < " + size;				
 					} else if (command.equals("min")) {
 						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p.screen_size = " + size;
+					}
+					if (sorting != null){
+						query = query + " ORDER BY p.screen_size " + sorting;
 					}
 				} else if (condition != null){
 					query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p.condition =  '"+ condition +"'";
@@ -69,6 +80,7 @@
 			    	%>
 			    	<table>
 			    	<tr>    
+						<td>Auction Id</td>
 						<td>Product Id</td>
 						<td>Product Model</td>
 						<td>Product Brand</td>
@@ -76,12 +88,12 @@
 						<td>Screen Size</td>
 					</tr>
 					<tr>    
+							<td><%= result.getString("s.auction_id") %></td>
 							<td><%= result.getString("s.product_id") %></td>
 							<td><%= result.getString("p.model") %></td>
 							<td><%= result.getString("p.brand") %></td>
 							<td><%= result.getString("s.initial_price") %></td>
 							<td><%= result.getString("p.screen_size") %></td>
-							<td><a href= 'webpage.jsp'> More Info</a></td>
 							<td><a href= 'webpage.jsp'> See Current Bids</a></td>
 							<td><a href= 'webpage.jsp'> Place Bid</a></td>
 					</tr>
@@ -90,12 +102,12 @@
 					
 					while (result.next()) { %>
 						<tr>    
+							<td><%= result.getString("s.auction_id") %></td>
 							<td><%= result.getString("s.product_id") %></td>
 							<td><%= result.getString("p.model") %></td>
 							<td><%= result.getString("p.brand") %></td>
 							<td><%= result.getString("s.initial_price") %></td>
 							<td><%= result.getString("p.screen_size") %></td>
-							<td><a href= 'webpage.jsp'> More Info</a></td>
 							<td><a href= 'webpage.jsp'> See Current Bids</a></td>
 							<td><a href= 'webpage.jsp'> Place Bid</a></td>
 						</tr>
@@ -116,7 +128,7 @@
 				
 			} catch (Exception ex) {
 				out.print(ex);
-				out.print("Could not login.");
+				out.print("Error.");
 			}
 		}
 		%>
