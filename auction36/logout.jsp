@@ -13,7 +13,7 @@
 <%
 session.invalidate();
 //session.getAttribute("email");   //this will throw an error
-response.sendRedirect("auction-login.jsp");
+response.sendRedirect("login.jsp");
  
 %>
 
