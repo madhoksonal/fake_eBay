@@ -31,7 +31,7 @@
 	
 	Create New Account
 	<br>
-		<form method="post" action="account-creation.jsp">
+		<form method="post" action="create-user.jsp">
 			<table>
 				<tr>    
 					<td>Username</td><td><input type="text" name="username"></td>
