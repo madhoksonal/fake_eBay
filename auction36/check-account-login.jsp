@@ -27,19 +27,31 @@
 		//Get parameters from the HTML form at the HelloWorld.jsp
 		String thisEmail = request.getParameter("email");
 		String thisPW = request.getParameter("password");
+		String table = request.getParameter("command");
 
 	    Statement st = con.createStatement();
 	    ResultSet rs;
-	    rs = st.executeQuery("select * from endUser where email='" + thisEmail + "' and password='" + thisPW + "'");
+	    rs = st.executeQuery("select * from " + table + " where email = '" + thisEmail + "' and password='" + thisPW + "'");
 	    if (rs.next()) {
 	        session.setAttribute("email", thisEmail); // the username will be stored in the session
+	        session.setAttribute("account_id", rs.getString("account_id"));
 	        //out.println("Welcome " + thisEmail);
 	        con.close();
 	        //out.println("<a href='logout.jsp'>Log out</a>");
-	        response.sendRedirect("webpage.jsp");
+	        
+	        
+	        if (table.equals("endUser")){
+	        	response.sendRedirect("webpage.jsp");
+	        } else if (table.equals("AdminStaff")){
+	        	response.sendRedirect("webpage.jsp");
+	        } else if (table.equals("CustomerRep")){
+	        	response.sendRedirect("webpage.jsp");
+	        }
+	        
+	        //response.sendRedirect("webpage.jsp");// change redirect based on 
 	    } else {
 	    	con.close();
-	        out.println("Invalid log-in. <a href='auction-login.jsp'>Try again.</a>");
+	        out.println("Invalid log-in. <a href='login.jsp'>Try again.</a>");
 	    }
 	
 		
