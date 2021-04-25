@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<!--Import some libraries that have classes that we need -->
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.LocalDate"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,13 +13,11 @@
 		if ((session.getAttribute("email") == null)) {
 		%>
 		You are not logged in. <br/>
-		<a href="auction-login.jsp">Please Login.</a>
+		<a href="login.jsp">Please Login.</a>
 		<%} else {
 			try {
-				Class.forName("com.mysql.jdbc.Driver");
 				ApplicationDB db = new ApplicationDB();	
-				//Connection con = db.getConnection();
-				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay","root", "D1am0nd4");
+				Connection con = db.getConnection();
 
 				//Create a SQL statement
 				Statement stmt = con.createStatement();
@@ -29,7 +26,7 @@
 				String price = request.getParameter("price_search");
 				String size = request.getParameter("screen_search");
 				String condition = request.getParameter("condition");
-				String type = request.getParameter("type");
+				String category = request.getParameter("category");
 				String sorting = request.getParameter("sort_by");
 				
 				String query = " ";
@@ -54,24 +51,15 @@
 					if (command.equals("max")){
 						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p.screen_size < " + size;				
 					} else if (command.equals("min")) {
-						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p.screen_size = " + size;
+						query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p.screen_size >= " + size;
 					}
 					if (sorting != null){
 						query = query + " ORDER BY p.screen_size " + sorting;
 					}
 				} else if (condition != null){
-					query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p.condition =  '"+ condition +"'";
-				} else if (type != null){
-					String arg = " ";
-					
-					if (type.equals("Laptop")){
-						arg = "isLaptop";
-					} else if (type.equals("Desktop")){
-						arg = "isDesktop";
-					} else if (type.equals("Tablet")){
-						arg = "isTablet";
-					}
-					query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id AND p." + arg + " = 1";
+					query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id and p.cond =  '"+ condition +"'";
+				} else if (category != null){
+					query = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id AND p.category =  '"+ category +"'";
 				}
 
 				ResultSet result = stmt.executeQuery(query);
@@ -82,20 +70,49 @@
 			    	<tr>    
 						<td>Auction Id</td>
 						<td>Product Id</td>
-						<td>Product Model</td>
-						<td>Product Brand</td>
+						<td>Brand</td>
+						<td>Model</td>
 						<td>Initial Price</td>
+						<td>OS</td>
 						<td>Screen Size</td>
+						<td>Condition</td>
+						<td>Category</td>
 					</tr>
 					<tr>    
 							<td><%= result.getString("s.auction_id") %></td>
 							<td><%= result.getString("s.product_id") %></td>
-							<td><%= result.getString("p.model") %></td>
 							<td><%= result.getString("p.brand") %></td>
+							<td><%= result.getString("p.model") %></td>
 							<td><%= result.getString("s.initial_price") %></td>
+							<td><%= result.getString("p.operating_system") %></td>
 							<td><%= result.getString("p.screen_size") %></td>
-							<td><a href= 'webpage.jsp'> See Current Bids</a></td>
-							<td><a href= 'webpage.jsp'> Place Bid</a></td>
+							<td><%= result.getString("p.cond") %></td>
+							<td><%= result.getString("p.category") %></td>
+							<%
+							LocalDate today = LocalDate.now();
+					    	String start_day = (String)result.getString("s.start_date");
+					    	String close_day = (String)result.getString("s.closing_date");
+					    	LocalDate start = LocalDate.parse(start_day);
+					    	LocalDate close = LocalDate.parse(close_day);
+					    	
+					    	boolean status = today.isBefore(close) & today.isAfter(start);
+			    	
+					    	if (status == true){
+					    		%><td style = "color:green;"> ACTIVE </td>
+						    	<%
+					    		
+					    	} else if (status == false){
+					    		%><td style = "color:red;"> CLOSED </td>
+						    	<%
+					    		
+					    	}
+					%>
+							<td>
+								<form method='post' action="auction-details.jsp">
+									<input type="hidden" name="auction_id" value="<%= result.getString("s.auction_id") %>">
+									<input type="submit" value="See Auction">
+								</form>
+							</td>
 					</tr>
 			    	<%
 					//parse out the results
@@ -104,12 +121,36 @@
 						<tr>    
 							<td><%= result.getString("s.auction_id") %></td>
 							<td><%= result.getString("s.product_id") %></td>
-							<td><%= result.getString("p.model") %></td>
 							<td><%= result.getString("p.brand") %></td>
+							<td><%= result.getString("p.model") %></td>
 							<td><%= result.getString("s.initial_price") %></td>
+							<td><%= result.getString("p.operating_system") %></td>
 							<td><%= result.getString("p.screen_size") %></td>
-							<td><a href= 'webpage.jsp'> See Current Bids</a></td>
-							<td><a href= 'webpage.jsp'> Place Bid</a></td>
+							<td><%= result.getString("p.cond") %></td>
+							<td><%= result.getString("p.category") %></td>
+							<%
+			    			start_day = (String)result.getString("s.start_date");
+					    	close_day = (String)result.getString("s.closing_date");
+					    	start = LocalDate.parse(start_day);
+					    	close = LocalDate.parse(close_day);
+					    	
+					    	status = today.isBefore(close) & today.isAfter(start);
+						    	if (status == true){
+						    		%><td style = "color:green;"> ACTIVE </td>
+							    	<%
+						    		
+						    	} else if (status == false){
+						    		%><td style = "color:red;"> CLOSED </td>
+							    	<%
+						    		
+						    	}
+							%>
+							<td>
+								<form method='post' action="auction-details.jsp">
+									<input type="hidden" name="auction_id" value="<%= result.getString("s.auction_id") %>">
+									<input type="submit" value="See Auction">
+								</form>
+							</td>
 						</tr>
 					<% }
 					//close the connection.
