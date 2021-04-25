@@ -1,107 +1,149 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<!--Import some libraries that have classes that we need -->
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.LocalDate"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Search Page</title>
+		<title>All Auctions</title>
 	</head>
 	<body>
 		<%
 		if ((session.getAttribute("email") == null)) {
 		%>
 		You are not logged in. <br/>
-		<a href="auction-login.jsp">Please Login.</a>
+		<a href="login.jsp">Please Login.</a>
 		<%} else {
-			%>
-			<h1> Search for an auction here! </h1>
-			<h2>Look at Auctions:</h2>
-			<form method='post' action="search-auctions.jsp">
-				<input type="radio" name="command" value="all"/>All Active Auctions
-				<br>
-				Enter ID <input type="text" name="id" value="201">
-				<br>
-				<input type="radio" name="command" value="auction_ID"/>Specific Auction
-				<br>
-				<input type="radio" name="command" value="seller_ID"/>Auctions by Seller
-				<br>
-				<input type="radio" name="command" value="buyer_ID"/>Auctions by Buyer
-				<br>
-				<input type="submit" value="submit" />
-			</form>
-			 
-			 <h2>Search by Criteria:</h2>
-			 
-			 Search by Brand, Model, or Operating System!
-			 <form method='post' action="search-queries.jsp">
-			 	<input type="text" name="text_search">
-			   	<br>
-			 	<input type="radio" name="command" value="model"/>Model
-			 	<input type="radio" name="command" value="brand"/>Brand
-			 	<input type="radio" name="command" value="operating_system"/> Operating System
-			 	<br>
-			 	<input type="submit" value="submit" />
-			 </form>
-			 <br>
-			 
-			  Search by Initial Price! <!-- will return anything lower that the search price -->
-			 <form method='post' action="search-queries.jsp">
-			 <input type="text" name="price_search" value="0.00" >
-			 <br>
-			 <input type="radio" name="command" value="min"/>Minimum
-			 <input type="radio" name="command" value="max"/>Maximum
-			 <br>
-			 Sort by <input type="radio" name="sort_by" value="asc"/>Ascending
-			 <input type="radio" name="sort_by" value="desc"/>Descending
-			 <br>
-			 <input type="submit" value="submit" />
-			 </form>
-			 <br>
-			 
-			 
-			  Search by Screen Size!
-			 <form method='post' action="search-queries.jsp">
-			 <input type="text" name="screen_search" value="13" >
-			 <br>
-			 <input type="radio" name="command" value="min"/>Minimum
-			 <input type="radio" name="command" value="max"/>Maximum
-			 <br>
-			 Sort by <input type="radio" name="sort_by" value="asc"/>Ascending
-			 <input type="radio" name="sort_by" value="desc"/>Descending
-			 <br>
-			 	<input type="submit" value="submit" />
-			 </form>
-			 <br>
-			 
-			 Search by Condition!
-			 <form method='post' action="search-queries.jsp">
-			 	<select name="condition" size=1>
-					<option value="Brand New">Brand New</option>
-					<option value="Like New">Like New</option>
-					<option value="Very Good">Very Good</option>
-					<option value="Good">Good</option>
-					<option value="Used">Used</option>
-				</select>&nbsp;<br> <input type="submit" value="submit">
-			 </form>
-			 <br>
-			 
-			 Search by Product Type!
-			 <form method='post' action="search-queries.jsp">
-			 	<select name="type" size=1>
-					<option value="Laptop">Laptop</option>
-					<option value="Tablet">Tablet</option>
-					<option value="Desktop">Desktop</option>
-				</select>&nbsp;<br> <input type="submit" value="submit">
-			 </form>
-			 <br>
-			 
-			 Return to <a href= 'webpage.jsp'> Homepage</a>
-			 
-			<%
-			}%>
+			try {
+
+				//Get the database connection
+				ApplicationDB db = new ApplicationDB();
+				Connection con = db.getConnection();
+
+				//Create a SQL statement
+				Statement stmt = con.createStatement();
+				
+				
+				String str = "SELECT * FROM Sells s, Product p WHERE s.product_id = p.product_id";
+
+				ResultSet result = stmt.executeQuery(str);
+				
+				if (result.next()) {
+			    	%>
+			    	<table>
+			    	<tr>    
+						<td>Auction Id</td>
+						<td>Product Id</td>
+						<td>Brand</td>
+						<td>Model</td>
+						<td>Initial Price</td>
+						<td>OS</td>
+						<td>Screen Size</td>
+						<td>Condition</td>
+						<td>Category</td>
+						<td>Status</td>
+					</tr>
+					<tr>    
+							<td><%= result.getString("s.auction_id") %></td>
+							<td><%= result.getString("s.product_id") %></td>
+							<td><%= result.getString("p.brand") %></td>
+							<td><%= result.getString("p.model") %></td>
+							<td><%= result.getString("s.initial_price") %></td>
+							<td><%= result.getString("p.operating_system") %></td>
+							<td><%= result.getString("p.screen_size") %></td>
+							<td><%= result.getString("p.cond") %></td>
+							<td><%= result.getString("p.category") %></td>
+							<%
+							LocalDate today = LocalDate.now();
+					    	String start_day = (String)result.getString("s.start_date");
+					    	String close_day = (String)result.getString("s.closing_date");
+					    	LocalDate start = LocalDate.parse(start_day);
+					    	LocalDate close = LocalDate.parse(close_day);
+					    	
+					    	boolean status = today.isBefore(close) & today.isAfter(start);
+			    	
+					    	if (status == true){
+					    		%><td style = "color:green;"> ACTIVE </td>
+						    	<%
+					    		
+					    	} else if (status == false){
+					    		%><td style = "color:red;"> CLOSED </td>
+						    	<%
+					    		
+					    	}
+					%>
+							<!--  <td><a href= 'auction-details.jsp'> See auction</a></td>-->
+							<td>
+								<form method='post' action="auction-details.jsp">
+									<input type="hidden" name="auction_id" value="<%= result.getString("s.auction_id") %>">
+									<input type="submit" value="See Auction">
+								</form>
+							</td>
+					</tr>
+			    	<%
+					//parse out the results
+					
+					while (result.next()) { %>
+						<tr>    
+							<td><%= result.getString("s.auction_id") %></td>
+							<td><%= result.getString("s.product_id") %></td>
+							<td><%= result.getString("p.brand") %></td>
+							<td><%= result.getString("p.model") %></td>
+							<td><%= result.getString("s.initial_price") %></td>
+							<td><%= result.getString("p.operating_system") %></td>
+							<td><%= result.getString("p.screen_size") %></td>
+							<td><%= result.getString("p.cond") %></td>
+							<td><%= result.getString("p.category") %></td>
+					
+			    	<%
+			    	
+			    	 start_day = (String)result.getString("s.start_date");
+			    	 close_day = (String)result.getString("s.closing_date");
+			    	 start = LocalDate.parse(start_day);
+			    	 close = LocalDate.parse(close_day);
+			    	
+			    	 status = today.isBefore(close) & today.isAfter(start);
+			    	
+			    	if (status == true){
+			    		%><td style = "color:green;"> ACTIVE </td>
+				    	<%
+			    		
+			    	} else if (status == false){
+			    		%><td style = "color:red;"> CLOSED </td>
+				    	<%
+			    		
+			    	}
+					%>
+							<!--  <td><a href= 'auction-details.jsp'> See auction</a></td>-->
+							<td>
+								<form method='post' action="auction-details.jsp">
+									<input type="hidden" name="auction_id" value="<%= result.getString("s.auction_id") %>">
+									<input type="submit" value="See Auction">
+								</form>
+							</td>
+						</tr>
+					<% }
+					//close the connection.
+					db.closeConnection(con);
+					%>
+				</table>
+				<%	
+			    } else {
+			    	con.close();
+			        out.println("No results.");
+			    }
+				%>
+			<%	
+				//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
+				con.close();
+				
+			} catch (Exception ex) {
+				out.print(ex);
+				out.print("Error.");
+			}
+		}
+		%>
 			
 	</body>
 </html>
