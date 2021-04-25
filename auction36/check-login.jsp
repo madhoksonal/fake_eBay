@@ -13,18 +13,11 @@
 	<%
 	try {
 
-		//Get the database connection
-		Class.forName("com.mysql.jdbc.Driver");
-		ApplicationDB db = new ApplicationDB();	
-		//Connection con = db.getConnection();
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay","root", "D1am0nd4");
+		ApplicationDB db = new ApplicationDB();
+		Connection con = db.getConnection();
 		
-		//HttpSession session = request.getSession();
-
-		//Create a SQL statement
 		Statement stmt = con.createStatement();
 
-		//Get parameters from the HTML form at the HelloWorld.jsp
 		String thisEmail = request.getParameter("email");
 		String thisPW = request.getParameter("password");
 		String table = request.getParameter("command");
@@ -35,9 +28,8 @@
 	    if (rs.next()) {
 	        session.setAttribute("email", thisEmail); // the username will be stored in the session
 	        session.setAttribute("account_id", rs.getString("account_id"));
-	        //out.println("Welcome " + thisEmail);
+
 	        con.close();
-	        //out.println("<a href='logout.jsp'>Log out</a>");
 	        
 	        
 	        if (table.equals("endUser")){
