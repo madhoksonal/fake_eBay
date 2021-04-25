@@ -41,11 +41,39 @@
 		//Run the query against the DB
 		ps.executeUpdate();
 
+
+        out.print("Account created!");
+    
+    %>
+        Create Customer Representative Account
+        <br>
+            <form method="post" action="create-customer-rep.jsp">
+                <table>
+                    <tr>    
+                        <td>Username</td><td><input type="text" name="username"></td>
+                    </tr>
+                    <tr>    
+                        <td>E-mail</td><td><input type="text" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td><td><input type="text" name="password"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Create Account">
+            </form>
+        <br>
+
+        <form action="sales-report.jsp">
+            <input type="submit" value="Generate Sales Report"/>
+        </form>
+		<a href="auction-login.jsp">Auction Login</a>
+		<a href="logout.jsp">Logout</a>
+		
+	%<
+
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 
-		out.print("Account created!");
-		
 	} catch (Exception ex) {
 		out.print(ex);
 		out.print("Account could not be created.");

@@ -33,16 +33,38 @@
 	    rs = st.executeQuery("select * from customerRep where email='" + thisEmail + "' and password='" + thisPW + "'");
 	    if (rs.next()) {
 	        session.setAttribute("email", thisEmail); // the username will be stored in the session
-	        //out.println("Welcome " + thisEmail);
-	        con.close();
-	        //out.println("<a href='logout.jsp'>Log out</a>");
-	        response.sendRedirect("webpage.jsp");
+	        out.println("Welcome " + thisEmail);
+			else {
+				out.println("Successfully logged in!");
+				break;
+			}
 	    } else {
 	    	con.close();
 	        out.println("Invalid log-in. <a href='auction-login.jsp'>Try again.</a>");
 	    }
-	
+	%>
 		
+	
+	<form action="custRep/browse-qna.jsp">
+		<input type="submit" value="Browse QnA"/>
+	</form>
+	<form action="sales-report.jsp">
+		<input type="submit" value="Search Keyword in Questions"/>
+	</form>
+	<form action="sales-report.jsp">
+		<input type="submit" value="Edit account information"/>
+	</form>
+	<form action="sales-report.jsp">
+		<input type="submit" value="Remove bids"/>
+	</form>
+	<form action="sales-report.jsp">
+		<input type="submit" value="Remove auctions"/>
+	</form>
+		
+		<a href="auction-login.jsp">Auction Login</a>
+		<a href="logout.jsp">Logout</a>
+
+	%<
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 		
@@ -51,5 +73,7 @@
 		out.print("Could not login.");
 	}
 %>
+
+	
 </body>
 </html>

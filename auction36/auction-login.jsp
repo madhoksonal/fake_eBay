@@ -10,9 +10,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>eBay but not eBay</title>
 	</head>
-	
+
 	<body>
-	
+		
+		<form action="custRep/browse-qna.jsp">
+			<input type="submit" value="Browse QnA"/>
+		</form>
 	Log In
 		<br>
 		<form method="post" action="check-account-login.jsp">
