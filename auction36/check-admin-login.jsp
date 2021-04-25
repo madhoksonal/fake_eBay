@@ -25,13 +25,11 @@
 		String thisEmail = request.getParameter("email");
 		String thisPW = request.getParameter("password");
 		
-		out.println(thisEmail+thisPW);
-		
 		String q = "SELECT email FROM adminStaff WHERE password = '" + thisPW + "'";
 		
 		ResultSet result = stmt.executeQuery(q);
 		boolean bool = result.wasNull();
-		if (!bool){
+		if (bool){
 			out.println("Invalid log-in. <a href='auction-login.jsp'>Try again.</a>");
 		}
 		
@@ -41,32 +39,19 @@
 			if (!checking.equals(thisEmail)){
 				out.println("Invalid log-in. <a href='auction-login.jsp'>Try again.</a>");
 			}
+			else {
+				out.println("Successfully logged in!");
+				break;}
 		}
-
-	q = "SELECT * FROM accounts";
-	result = stmt.executeQuery(q);
 	%>
-	
 
+	<form action="https://google.com">
+		<input type="submit" value="Create Customer Representative"/>
+	</form>
+	<form action="https://google.com">
+		<input type="submit" value="Generate Sales Report"/>
+	</form>
 
-	<table>
-		<tr>    
-			<td>Login-Name</td>
-			<td>Email</td>
-			<td>Password</td>
-		</tr>
-			<%
-			//parse out the results
-			while (result.next()) { %>
-				<tr>    
-					<td><%= result.getString("login_name") %></td>
-					<td><%= result.getString("email") %></td>
-					<td><%= result.getString("password") %></td>
-				</tr>
-
-		<% } %>
-		
-	</table>
 	<%
 	//close the connection.
 		con.close();

@@ -44,7 +44,7 @@
 	
 		
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
-		//con.close();
+		con.close();
 		
 	} catch (Exception ex) {
 		out.print(ex);
