@@ -14,16 +14,20 @@
 		if ((session.getAttribute("email") == null)) {
 		%>
 		You are not logged in. <br/>
-		<a href="auction-login.jsp">Please Login.</a>
+		<a href="login.jsp">Please Login.</a>
 		<%} else {
 			%>
 			You are logged in.
 			<br>
 			Currently logged in: <%=session.getAttribute("email")%>
 			<br>
+			User_ID: <%=session.getAttribute("account_id")%>
+			<br>
 			<a href='browsing.jsp'>Browse auctions and products.</a>
 			<br>
-			<a href='alerts.jsp'>Set up/view alerts.</a>
+			<a href='history.jsp'>View history of auctions + bids.</a>
+			<br>
+			<a href='alerts.jsp'>Wishlist</a>
 			<br>
 			<a href='logout.jsp'>Log out.</a>
 			<%
