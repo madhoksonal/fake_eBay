@@ -45,10 +45,26 @@
 		}
 	%>
 
-	<form action="https://google.com">
-		<input type="submit" value="Create Customer Representative"/>
-	</form>
-	<form action="https://google.com">
+	Create Customer Representative Account
+	<br>
+		<form method="post" action="create-customer-rep.jsp">
+			<table>
+				<tr>    
+					<td>Username</td><td><input type="text" name="username"></td>
+				</tr>
+				<tr>    
+					<td>E-mail</td><td><input type="text" name="email"></td>
+				</tr>
+				<tr>
+					<td>Password</td><td><input type="text" name="password"></td>
+				</tr>
+			
+			</table>
+			<input type="submit" value="Create Account">
+		</form>
+	<br>
+
+	<form action="sales-report.jsp">
 		<input type="submit" value="Generate Sales Report"/>
 	</form>
 
