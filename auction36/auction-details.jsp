@@ -20,9 +20,7 @@
 	try {
 
 		//Get the database connection
-		Class.forName("com.mysql.jdbc.Driver");
 		ApplicationDB db = new ApplicationDB();
-		//Connection con = db.getConnection();
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay", "root", "root");
 
 		//Create a SQL statement
@@ -100,10 +98,9 @@
 			LocalDate start = LocalDate.parse(start_day);
 			LocalDate close = LocalDate.parse(close_day);
 			///////////////////////////////////////////////////////////////////
-			Statement stmt5 = con.createStatement();
+			
 
-			String getMaxBid = "SELECT b.account_id, b.upper_bid_limit, MAX(b.current_bid) FROM Buys b WHERE auction_id ="
-					+ auction_id;
+			
 			/////////////////////////////////////////////
 
 			boolean status = today.isBefore(close) & today.isAfter(start);
@@ -111,60 +108,59 @@
 			if (status == true) {
 			%><td style="color: green;">ACTIVE</td>
 		</tr>
+		</table>
+			<form method='post' action="auction-details.jsp">
+				<input type="hidden" name="auction_id" value="<%=result.getString("s.auction_id")%>">
+				<input type="submit" value="Place bid">
+			</form>
+		</tr>
 		<%
 		} else if (status == false) {
 		%><td style="color: red;">CLOSED</td>
 		</tr>
-		<%
-		/////////////////////////////////////////////////////
-		%><tr>
-			<td>Winner:</td>
+		<tr>
 			<%
 			//checking for winner
-		
+			Statement stmt5 = con.createStatement();
+			String getMaxBid = "SELECT b.account_id, b.upper_bid_limit, b.current_bid FROM Buys b WHERE b.auction_id = " + auction_id + " ORDER BY b.current_bid DESC";
 			result = stmt5.executeQuery(getMaxBid);
 					
 			if (result.next()) {
-			int maxBid = result.getInt("MAX(b.current_bid)");
-
-			if (secret_minimum > maxBid) {
-				//no one is winner
-				%><td>No one is the winner.</td>
-				</tr>
-				<%
-		} else if (secret_minimum < maxBid) {
-				//alert the winner
-				%><td>Winner Chosen! <%=result.getString("b.account_id")%></td>
-				</tr>
-				<%
-		}
-				else{
-					%><td>Winner to be determined.</td>
+				int maxBid = result.getInt("b.current_bid");
+				if (secret_minimum > maxBid) {
+					//no one is winner
+					%><td>No one is the winner.</td>
 					</tr>
+					
+			<%
+				} else if (secret_minimum < maxBid) {
+					//alert the winner
+				%><td><b> Winner Chosen: </b></td><td> Account Number -> <%=result.getString("b.account_id")%></td>
+				</tr>
+				</table>
+				<%
+				}
+				else{%><td>Winner to be determined.</td>
+					</tr> 
+					</table>
 					<%
-			
-		}
-
-		}
+					}
+				}
+			else{
+				out.println("Error retrieving winner.");
+			}
 		}
 		%>
-	</table>
+	<!--  </table> -->
 	<%
 	} else {
 	con.close();
 	out.println("Error retrieving auction details.");
 	}
 	%>
+	
 	<br>
-	<form method='post' action="auction-details.jsp">
-		<!-- Can send the auction_id somewhere -->
-		<input type="hidden" name="auction_id"
-			value="<%=result.getString("s.auction_id")%>"> <input
-			type="submit" value="Place bid">
-	</form>
-	<br>
-	<br>
-	<b>Current Bids:</b>
+	<b> Current Bids: </b>
 	<%
 	Statement stmt2 = con.createStatement();
 
