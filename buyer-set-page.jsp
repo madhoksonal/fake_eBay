@@ -6,6 +6,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Buyer: Set Bid Limit and Auto Bidding</title>
 <style>
 body {
   margin: 0;
@@ -44,57 +46,40 @@ body {
 
 <div class="topnav">
   <a class="active" href="webpage.jsp">Home</a>
+  <a class="active" href="alert-page-buyer.jsp">Buyer's Alert Page</a>
 
 </div>
 
-
+<center>
 <div style="padding-left:16px">
   <h2>Welcome to eBuy - your friendly neighborhood eBay!</h2>
   <p></p>
 </div>
+	<h3>Set Secret Upper Limit for Buyer</h3>
+		<br> 
+		<hr class="dashed">	
+		
+<form action="buyer-set-upper-bid.jsp" >
+    <label for="auctionID">Input the Auction ID</label><br>
+     <input type="text" id="auctionID" name="auctionID"><br><br>
+    <label for="bidLimit">Set your Upper Bid Limit for this auction</label><br>
+     <input type="text" id="upperLimit" name="upperLimit"><br><br>
+  <input type="submit" value="Set Upper Limit">
+</form> 
 
-	<%
-		if ((session.getAttribute("email") == null)) {
-		%>
-		You are not logged in. <br/>
-		<%} else {
-			try {
-		
-		//Get the database connection
-		Class.forName("com.mysql.jdbc.Driver");
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fakeEbay", "root", "root");
+<br>
+<br> 
+		<hr class="dashed">	
 
-		//Create a SQL statement
-		Statement stmt = con.createStatement();
-		
-		//get product ID
-		String auctionID = request.getParameter("auctionID"); 
-		int auctionIDInt = Integer.parseInt(auctionID); 
+	<form action="auto-bidding.jsp" >
+    <label for="automaticBidding">Would you like to have automatic bidding? <br> We will place a higher bid automatically for your 
+    bid until your upper limit if you input the Auction ID and click yes. </label><br>
+      <label for="auction_ID">Input the Auction ID</label><br>
+     <input type="text" id="auction_ID" name="auction_ID"><br><br>
+  <input type="submit" value="Yes">
+</form> 
+
+</center>
 	
-		
-		
-		//set upper limit for specific product ID 
-		String upperLimit = request.getParameter("upperLimit"); 
-		int upperLimitInt = Integer.parseInt(upperLimit); 
-			
-		
-		//get email for session 
-		String email = (String) session.getAttribute("email");
-		
-		//Make an update statement for the Buys table:
-		String update = "UPDATE Buys" + " SET upper_bid_limit = " + upperLimitInt + 
-		" WHERE (account_id = (SELECT e.account_id FROM endUser e WHERE e.email = '" + email + "')) AND auction_id = " + auctionIDInt;
-		
-		stmt.executeUpdate(update);
-		
-		out.print("Upper Bit limit set! for " + email);
-		
-		
-	
-	} catch (Exception ex) {
-		out.print(ex);
-		out.print("Upper Bid limit not set");
-	}
-}
-%>
+</body>
+</html>
